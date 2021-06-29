@@ -93,6 +93,16 @@ puts Wallet.new.transactions
 ```
 
 
+
+### Module_example.rb
+The wallet wrapper is just a class that alows us to access the information stored in the wallet by callling a certain method.The module_example uses the methods from the wall wrapper to do certain things. 
+
+A programmer could use the module to list all the users addresses in a certain way. They could create a new method that would the user to save all there created addresses to a file. The sky is the limit
+
+The file module_usage_example.rb includes another example on how the modules could be used to auto start the wallet if it is not already login. The code wil first check the status page to see if the the program is logged in to the wallet. If the program detects that the program is not logged in, it will automally log in to that user that is saved in the wallet config file. Another thing that is it is able to do is to set the node to the defualt address. 
+
+
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
