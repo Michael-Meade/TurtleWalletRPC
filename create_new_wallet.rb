@@ -10,7 +10,7 @@ w.wallet_close
 
 # create a new wallet named new_wallet.wallet
 
-w.create_wallet("wallet.wallet", "derby3333")
+w.create_wallet("wallet.wallet", "ppppp")
 
 
 # print out the primary address
