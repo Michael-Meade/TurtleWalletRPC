@@ -72,8 +72,21 @@ module TurtleCoin
         puts "HEX: " + hex
         @w.create_integrated_address(addr, hex)
     end
+    def self.save_keys(addr)
+        j = @w.keys_address(addr).to_json
+        File.open(File.join("#{addr}.txt").to_s, 'a') { |file| file.write(j) }
+    end
+    def self.node
+        JSON.parse(@w.node)
+        #p r["nodeFee"]
+    end
     def self.set_node(node_port = 11898, node = "TRTLnode.ddns.net")
-        @w.set_node(node_port, node)
+        # store the results of '/node' - contains node info
+        n = self.node
+        if n["daemonHost"] == "127.0.0.1"
+            @w.set_node(node_port, node)
+        end
+        #
     end
     def self.create_new_wallet(wallet, pass, node_port = 11898, node = "TRTLnode.ddns.net")
         # This will close the current wallet
@@ -87,20 +100,7 @@ module TurtleCoin
         @w.transactions
     end
 end
-TurtleCoin.set_node
 TurtleCoin.auto_on
-
-#puts TurtleCoin.get_addresses
-#TurtleCoin.create_integrated(addr, hex=nil)
-
-#TurtleCoin.close
-#TurtleCoin.get_addresses
-#puts TurtleCoin.get_balance
-=begin
-trans = TurtleCoin.transactions.to_h
-trans.each do |keys, value|
-    puts keys.to_s + ": " + value.to_s
-end
-puts "\n\n"
-=end
+TurtleCoin.set_node
+#
 
