@@ -34,11 +34,16 @@ module TurtleCoin
     def self.get_balances
         # display the balances & addresses
         JSON.parse(@w.balances).each {|key, value| puts "Address: #{key["address"]}\nUnlocked: #{key["unlocked"]}\nLocked: #{key["locked"]}\n\n"}
+    nil
     end
     def self.get_addresses_array
         addresses = []
         JSON.parse(@w.list_addresses)["addresses"].each {|addr| addresses << addr }
      return addresses
+    end
+    def self.save_addresses
+        addresses = get_addresses_array
+        File.open(File.join("addresses.txt").to_s, 'a') { |file| file.write(addresses.join("\n") + "\n") }
     end
     def self.get_addresses
         # displays the addresses
