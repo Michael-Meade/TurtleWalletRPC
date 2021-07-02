@@ -36,6 +36,11 @@ module TurtleCoin
         JSON.parse(@w.balances).each {|key, value| puts "Address: #{key["address"]}\nUnlocked: #{key["unlocked"]}\nLocked: #{key["locked"]}\n\n"}
     nil
     end
+    def self.get_balances_array
+        bal = []
+        JSON.parse(@w.balances).each {|key, value| bal << [key["address"], key["unlocked"], key["locked"]]} 
+    return bal
+    end
     def self.get_addresses_array
         addresses = []
         JSON.parse(@w.list_addresses)["addresses"].each {|addr| addresses << addr }
@@ -49,6 +54,9 @@ module TurtleCoin
         # displays the addresses
         JSON.parse(@w.list_addresses)["addresses"].each {|addr| puts "Address: #{addr}"}
     nil
+    end
+    def self.keys
+        @w.keys
     end
     def self.get_balance
         @w.balance
@@ -70,7 +78,7 @@ module TurtleCoin
             hex = SecureRandom.hex(32)
         end
         puts "HEX: " + hex
-        @w.create_integrated_address(addr, hex)
+    JSON.parse(@w.create_integrated_address(addr, hex))
     end
     def self.save_keys(addr)
         j = @w.keys_address(addr).to_json
@@ -78,7 +86,6 @@ module TurtleCoin
     end
     def self.node
         JSON.parse(@w.node)
-        #p r["nodeFee"]
     end
     def self.set_node(node_port = 11898, node = "TRTLnode.ddns.net")
         # store the results of '/node' - contains node info
@@ -86,7 +93,6 @@ module TurtleCoin
         if n["daemonHost"] == "127.0.0.1"
             @w.set_node(node_port, node)
         end
-        #
     end
     def self.create_new_wallet(wallet, pass, node_port = 11898, node = "TRTLnode.ddns.net")
         # This will close the current wallet
@@ -102,5 +108,5 @@ module TurtleCoin
 end
 TurtleCoin.auto_on
 TurtleCoin.set_node
-#
+
 
