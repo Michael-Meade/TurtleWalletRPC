@@ -22,7 +22,7 @@ end
 
 while true
 
-    print("\n1] Node Info\n2] Balance\n3] Create integrated\n4] Create New Addr\n5] List Addresses\n")
+    print("\n1] Node Info\n2] Balance\n3] Create integrated\n4] Create New Addr\n5] List Addresses\n6] Get view Key")
     print("Enter cmd:\n")
 
     cmd = gets
@@ -71,6 +71,15 @@ while true
             end
             i+=1
         end
+    elsif cmd.to_i == 6
+        key = TurtleCoin.keys
+        user_table = Terminal::Table.new do |v |
+          v.title = "Keys"
+          v.headings = [ 'Private View Key' ]
+          v << [ key["privateViewKey"]]
+          v.style = { :border_left => false, :border_right => false, :border => :unicode, :all_separators => true }
+        end
+    puts user_table
     end
 
 end

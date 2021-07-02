@@ -56,7 +56,7 @@ module TurtleCoin
     nil
     end
     def self.keys
-        @w.keys
+        JSON.parse(@w.keys)
     end
     def self.get_balance
         @w.balance
