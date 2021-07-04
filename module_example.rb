@@ -1,6 +1,7 @@
 require_relative 'lib/TurtleCoin'
 require 'securerandom'
 require 'json'
+require 'bigdecimal'
 module TurtleCoin
     @w = Wallet.new
     def self.create_addresses(count=1)
@@ -101,6 +102,16 @@ module TurtleCoin
         @w.create_wallet(wallet, pass)
         # we have conncet our wallet to a node
         @w.set_node(node_port, node)
+    end
+    def self.transactions_table
+        out = []
+        transactions["transactions"].each do |i|
+            trans = i["transfers"].shift
+            fee = i["fee"].to_i / 100
+            out << [trans["address"], trans["amount"].to_i / 100, i["hash"], fee, i["timestamp"], i["paymentID"]]
+        end
+        nil
+    return out
     end
     def self.transactions
         @w.transactions
