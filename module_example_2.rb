@@ -6,8 +6,7 @@ require 'io/console'
 
 
 
-#status = TurtleCoin.status
-#j = JSON.parse(status)
+#
 def view_wallet_switch(wallet)
     if wallet 
         return "true".green
@@ -18,11 +17,13 @@ end
 
 while true
 
-    print("\n1] Node Info\n2] Balance\n3] Create integrated\n4] Create New Addr\n5] List Addresses\n6] Get view Key")
+    print("\n1] Node Info\n2] Balance\n3] Create integrated\n4] Create New Addr\n5] List Addresses\n6] Get view Key\n7] Transcations")
     print("Enter cmd:\n")
     cmd = gets
     $stdout.clear_screen
     if cmd.to_i == 1
+        status = TurtleCoin.status
+        j = JSON.parse(status)
         user_table = Terminal::Table.new do |v|
           v.title = "Wallet Info"
           v.headings = 'Network Block Count', 'Peer Count', 'Local Daemon Block Count', 'Hash Rate', 'View Wallet', 'SubWallet #'
@@ -76,10 +77,10 @@ while true
     puts user_table
     elsif cmd.to_i == 7
         t =  TurtleCoin.transactions_table
-        user_table = Terminal::Table.new do |v |
-          v.title = "Keys"
+        user_table   = Terminal::Table.new do |v |
+          v.title    = "Transcations"
           v.headings = [ 'Address', 'amount', 'hash', 'fee', 'TimeStamp', 'PaymentId']
-          v.rows =  t
+          v.rows     =  t
           v.style = { :border_left => false, :border_right => false, :border => :unicode, :all_separators => true }
         end
     puts user_table
