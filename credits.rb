@@ -60,11 +60,10 @@ class Credits
     def utils
         @utils
     end
-    def add_credits
-        p utils.check_user
+    def add_credits(amount)
         if utils.check_user
             # if true
-
+            @db.execute("UPDATE users set credits = credits + '#{amount}' WHERE fingerprint = '#{@fprints}'")
         else
             CreateAccount.new(@fprints)
         end
@@ -73,7 +72,8 @@ end
 #CreateDB.new
 #CreateAccount.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").insert
 # Find a few rows
-#DB.new.read_db.execute( "select * from users" ) do |row|
-#  p row
-#end
-p Credits.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").add_credits
+Credits.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").add_credits(10)
+DB.new.read_db.execute( "select * from users" ) do |row|
+  p row
+end
+#
