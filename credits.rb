@@ -54,12 +54,14 @@ class Credits
     # The class that should be called to remove, update any credits after payment or after the task
     def initialize(fprints)
         @fprints = fprints
-        @utils.new(@fprints)
+        @utils   = Utils.new(@fprints)
+        @db      = DB.new.read_db
     end
     def utils
         @utils
     end
     def add_credits
+        p utils.check_user
         if utils.check_user
             # if true
 
@@ -74,4 +76,4 @@ end
 #DB.new.read_db.execute( "select * from users" ) do |row|
 #  p row
 #end
-p Credits.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").create_user
+p Credits.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").add_credits
