@@ -37,7 +37,7 @@ class Utils
     def check_user
         # if status is set to true it means that 
         # there already a user in the DB with that fingerprint
-        # if status is set to false then there is not a user with that fingerprint
+        # if status is set to false then there is not a user with that fingerprintgit 
         status = false
         db = DB.new.read_db 
         db.execute( "select fingerprint from users" ) do |row|
@@ -50,6 +50,8 @@ class Utils
     end
 end
 class Credits
+    # This is the class that should be called. It is where all the logic for goes. 
+    # The class that should be called to remove, update any credits after payment or after the task
     def initialize(fprints)
         @fprints = fprints
         @utils.new(@fprints)
