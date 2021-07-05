@@ -18,6 +18,10 @@ end
 class CreateAccount
     def initialize(fprints)
         @fprints = fprints
+        @utils   = Utils.new(@fprints).check_user
+        if !@utils
+            self.insert
+        end
     end
     def j_template
         j = {"fingerprint" => @fprints,
@@ -53,6 +57,10 @@ class Credits
     # This is the class that should be called. It is where all the logic for goes. 
     # The class that should be called to remove, update any credits after payment or after the task
     def initialize(fprints)
+        # If the fingerprint is not 
+        # in the DB this will add the fingerprint 
+        # to the DB.
+        CreateAccount.new(fprints)
         @fprints = fprints
         @utils   = Utils.new(@fprints)
         @db      = DB.new.read_db
@@ -61,18 +69,16 @@ class Credits
         @utils
     end
     def add_credits(amount)
-        if utils.check_user
-            # if true
-            @db.execute("UPDATE users set credits = credits + '#{amount}' WHERE fingerprint = '#{@fprints}'")
-        else
-            CreateAccount.new(@fprints)
-        end
+        @db.execute("UPDATE users set credits = credits + '#{amount}' WHERE fingerprint = '#{@fprints}'")
+    end
+    def subtract_credits(amount)
+        @db.execute("UPDATE users set credits = credits - '#{amount}' WHERE fingerprint = '#{@fprints}'")
     end
 end
 #CreateDB.new
 #CreateAccount.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").insert
 # Find a few rows
-Credits.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").add_credits(10)
+Credits.new("1").subtract_credits(10)
 DB.new.read_db.execute( "select * from users" ) do |row|
   p row
 end
