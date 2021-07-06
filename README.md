@@ -64,6 +64,14 @@ JSON.parse(js).each do |key, value|
 end
 ```
 
+### More information about a transaction
+```ruby
+TurtleCoin.transaction_info("kgfhfghfhj")
+
+```
+
+This method will return a bunch of information about a certain transaction. The transaction hash is needed to use this method.
+
 ### Get balance of certain addresses
 ```ruby
 puts Wallet.new.balance_address("TRTLuxL46JJaJbTYMyQGLi4euHoe3QUNQQ5niiPoYah15pc6ESFdZJ59KmtzUzedHASfDRYPxVbEiYQsXUtBmQRL18pDdK72F5i")
@@ -73,6 +81,12 @@ puts Wallet.new.balance_address("TRTLuxL46JJaJbTYMyQGLi4euHoe3QUNQQ5niiPoYah15pc
 ```ruby
 puts Wallet.new.create_addresses
 ```
+
+```ruby
+puts Wallet.new.create_addresses(4)
+
+```
+The create_addresses method argument controls how many new addresses are created. The create_addresses method will return an array that contains the keys and addresses of the newly created addresses. 
 
 ### Get status
 ```ruby
