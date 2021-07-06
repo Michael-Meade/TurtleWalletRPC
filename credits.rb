@@ -38,6 +38,13 @@ class Utils
     def initialize(fprints)
         @fprints = fprints
     end
+    def get_credits
+        db = DB.new.read_db 
+        db.execute( "select credits from users WHERE fingerprint='#{@fprints}'" ) do |row|
+            row = row.shift
+        return row
+        end
+    end
     def check_user
         # if status is set to true it means that 
         # there already a user in the DB with that fingerprint
@@ -72,13 +79,19 @@ class Credits
         @db.execute("UPDATE users set credits = credits + '#{amount}' WHERE fingerprint = '#{@fprints}'")
     end
     def subtract_credits(amount)
-        @db.execute("UPDATE users set credits = credits - '#{amount}' WHERE fingerprint = '#{@fprints}'")
+        current_credits = @utils.get_credits.to_i
+        if current_credits - amount >= 0 
+            @db.execute("UPDATE users set credits = credits - '#{amount}' WHERE fingerprint = '#{@fprints}'")
+        else
+            return false
+        end
     end
 end
 #CreateDB.new
 #CreateAccount.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").insert
 # Find a few rows
-Credits.new("1").subtract_credits(10)
+Credits.new("m").add_credits(2)
+# Credits.new("1234").subtract_credits(10)
 DB.new.read_db.execute( "select * from users" ) do |row|
   p row
 end
