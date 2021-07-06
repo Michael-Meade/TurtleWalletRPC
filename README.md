@@ -117,6 +117,8 @@ gem install rqrcode
 ```
 To start the site use the `cd html` command to change the directory to the html directory. This is where all the code is held that will power the site. Next enter the following command:
 
+
+Make sure that you enter your wallet information in the config.json file in the data directory. 
 `ruby run.rb`
 
 This will start the site. Now go to your favorite  web browser and visit:
