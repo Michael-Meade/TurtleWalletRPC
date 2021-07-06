@@ -73,10 +73,8 @@ tr:nth-child(even) {
             <input type="submit" value="Create Address">
         </form>
         <% if request.fullpath.to_s == "/address"%>
-            <% TurtleCoin.create_addresses %>
-            <% addr = TurtleCoin.all_addresses["addresses"] %>
-            <b><%= addr[0] %></b>
-            <% qrcode = RQRCode::QRCode.new(addr[0])%>
+            <% qr = TurtleCoin.create_addresses %>
+            <% qrcode = RQRCode::QRCode.new(qr.join("\n"))%>
             <% png = qrcode.as_svg(
                 color: "000",
                 shape_rendering: "crispEdges",
