@@ -115,8 +115,15 @@ The rqrcode gem will be used to create a .svg file that contains a QR code of th
 gem install sinatra
 gem install rqrcode
 ```
+To start the site use the `cd html` command to change the directory to the html directory. This is where all the code is held that will power the site. Next enter the following command:
 
-```
+`ruby run.rb`
+
+This will start the site. Now go to your favorite  web browser and visit:
+
+`http://localhost:4567/`
+
+By default Sinatra uses the port 4567. 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
