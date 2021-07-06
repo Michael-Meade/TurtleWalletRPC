@@ -117,7 +117,7 @@ module TurtleCoin
     return out
     end
     def self.transaction_info(hash)
-        @w.transaction_hash_info(hash)
+        JSON.parse(@w.transaction_hash_info(hash))["transaction"]
     end
     def self.transactions
         @w.transactions
@@ -126,5 +126,3 @@ end
 TurtleCoin.auto_on
 TurtleCoin.set_node
 
-
-#p TurtleCoin.create_addresses
