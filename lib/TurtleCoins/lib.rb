@@ -166,6 +166,9 @@ class Wallet < HTTP
         # Gets a list of all unconfirmed, outgoing transactions in the wallet container
         get('/transactions/unconfirmed')
     end
+    def transaction_hash_info(hash)
+        get('transactions/hash/' + hash)
+    end
     def transactions
         # Gets a list of all transactions in the wallet container
         JSON.parse(get('/transactions'))

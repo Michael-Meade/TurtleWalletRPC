@@ -66,6 +66,9 @@ module TurtleCoin
         # get address count
         JSON.parse(@w.list_addresses)["addresses"].count
     end
+    def self.get_mnemonic(addr)
+        @w.keys_mnemonic(addr)
+    end
     def self.all_addresses
         # list all addresses
         JSON.parse(@w.list_addresses)
@@ -112,6 +115,9 @@ module TurtleCoin
         end
         nil
     return out
+    end
+    def self.transaction_info(hash)
+        @w.transaction_hash_info(hash)
     end
     def self.transactions
         @w.transactions
