@@ -103,6 +103,20 @@ The file module_usage_example.rb includes another example on how the modules cou
 
 
 
+### Basic Sinatra Site
+All the code that is needed is located in the 'html' directory. 
+
+The first thing that is needed is to install the sinatra gem. This gem makes its a breeze to set up a site. 
+
+The rqrcode gem will be used to create a .svg file that contains a QR code of the address. 
+<b>IT IS IMPORTANT TO NOT SHARE THE .SVG file! The QR code contains a Hash of the keys and wallet addresses.</b>
+
+```ruby
+gem install sinatra
+gem install rqrcode
+```
+
+```
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
