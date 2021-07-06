@@ -6,10 +6,11 @@ module TurtleCoin
     @w = Wallet.new
     def self.create_addresses(count=1)
         # default count is 1.
+        array = []
         for i in 1..count.to_i
-            @w.create_addresses
+            array << JSON.parse(@w.create_addresses)
         end
-        nil
+    return array
     end
     def self.close
         @w.wallet_close
@@ -61,6 +62,9 @@ module TurtleCoin
     end
     def self.get_balance
         @w.balance
+    end
+    def self.private_key_transaction(hash)
+        @w.transaction_private_key(hash)
     end
     def self.address_count
         # get address count

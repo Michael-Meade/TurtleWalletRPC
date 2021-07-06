@@ -173,6 +173,10 @@ class Wallet < HTTP
         # Gets a list of all transactions in the wallet container
         JSON.parse(get('/transactions'))
     end
+    def transaction_private_key(hash)
+        # Gets the transaction private key of the given transaction. This can be used to audit a transaction.
+        get('/transactions/privatekey/' + hash)
+    end
     def transcation_send_basic(addr, amount)
         j = { "destination" => addr, "amount" => amount }
         post('/transaction/send/basic', j.to_json)
