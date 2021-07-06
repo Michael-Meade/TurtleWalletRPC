@@ -107,7 +107,7 @@ module TurtleCoin
         out = []
         transactions["transactions"].each do |i|
             trans = i["transfers"].shift
-            fee = i["fee"].to_i / 100
+            fee   = i["fee"].to_i / 100
             out << [trans["address"], trans["amount"].to_i / 100, i["hash"], fee, i["timestamp"], i["paymentID"]]
         end
         nil
@@ -121,3 +121,4 @@ TurtleCoin.auto_on
 TurtleCoin.set_node
 
 
+#p TurtleCoin.create_addresses
