@@ -57,6 +57,9 @@ module TurtleCoin
         JSON.parse(@w.list_addresses)["addresses"].each {|addr| puts "Address: #{addr}"}
     nil
     end
+    def self.primary_addr
+        @w.address_primary.to_h["address"]
+    end
     def self.keys
         JSON.parse(@w.keys)
     end
@@ -77,6 +80,28 @@ module TurtleCoin
         # list all addresses
         JSON.parse(@w.list_addresses)
     end
+    def self.import_mnemonic_seed(mnemonic_seed)
+        # Imports a wallet using a mnemonic seed
+        scan_height = JSON.parse(status)["walletBlockCount"]
+        @w.import_seed(mnemonic_seed, scan_height)
+    end
+    def self.import_pub_spend(public_spend_key)
+        # Imports a view only subwallet with the given publicSpendKey
+        scan_height = JSON.parse(status)["walletBlockCount"]
+    @w.wallet_addresses_import_view(public_spend_key, scan_height)
+    end
+    def self.import_private_spend(private_spend_key)
+        # Imports a subwallet with the given private spend key
+        # first it gets the wallet's block count.
+        scan_height = JSON.parse(status)["walletBlockCount"]
+    @w.wallet_addresses_import(private_spend_key, scan_height.to_i)
+    end
+        
+    def self.save_keys
+        all_addresses["addresses"].each do |addr|
+           puts get_mnemonic(addr)["mnemonicSeed"]
+        end
+    end
     def self.incoming_transcations(addr)
         @w.transactions_unconfirmed_addr(addr)
     end
@@ -87,10 +112,6 @@ module TurtleCoin
         end
         puts "HEX: " + hex
     JSON.parse(@w.create_integrated_address(addr, hex))
-    end
-    def self.save_keys(addr)
-        j = @w.keys_address(addr).to_json
-        File.open(File.join("#{addr}.txt").to_s, 'a') { |file| file.write(j) }
     end
     def self.node
         JSON.parse(@w.node)

@@ -15,6 +15,37 @@ class CreateDB
     SQL
 end
 =end
+
+class WaitingDB
+    def initialize(fprints)
+        @fprints = fprints
+    end
+    def insert
+        db = DB.new.read_db
+        db.execute("INSERT INTO Waiting (fingerprint) 
+            VALUES (?)", @fprints) 
+    end
+    def create_table
+        db = DB.new.read_db
+        rows = db.execute <<-SQL
+            create table Waiting (
+                fingerprint varchar(30)
+        );
+    SQL
+    end
+    def check_db
+        status = false
+        db = DB.new.read_db 
+        db.execute( "select fingerprint from Waiting" ) do |row|
+            row = row.shift
+            if row ==  @fprints
+                status = true
+            end
+        end
+    return status
+    end
+end
+# WaitingDB.new(nil).create_table
 class CreateAccount
     def initialize(fprints)
         @fprints = fprints
@@ -90,9 +121,11 @@ end
 #CreateDB.new
 #CreateAccount.new("5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").insert
 # Find a few rows
-Credits.new("m").add_credits(2)
+#Credits.new("m").add_credits(2)
 # Credits.new("1234").subtract_credits(10)
+=begin
 DB.new.read_db.execute( "select * from users" ) do |row|
   p row
 end
-#
+
+=end

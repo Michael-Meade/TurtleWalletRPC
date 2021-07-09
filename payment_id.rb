@@ -18,9 +18,35 @@ class GenPayId
     end
 end
 
+class HexSpeak
+    def pick_speak
+        File.readlines("hexspeak.txt").sample
+    end
+    def count(c = 0)
+        pick = []
+        for i in 0..c.to_i
+            pick << pick_speak
+        end
+    return pick.join
+    end
+end
 
-
-
+l = HexSpeak.new.count(2)
+puts l
+class GenPayIdV2
+    def initialize(fingerprints)
+        @fingerprints = fingerprints
+    end
+    def fingerprints
+        @fingerprints
+    end
+    def test
+        hex
+    end
+    def hex
+        SecureRandom.hex(32)
+    end
+end
 class SavePayment
     def initialize(payment_id)
         @payment_id = payment_id.downcase

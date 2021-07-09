@@ -1,4 +1,5 @@
 require_relative 'module_example'
+require_relative 'credits'
 require 'rufus-scheduler'
 require 'set'
 SCHEDULER = Rufus::Scheduler.new
@@ -54,9 +55,15 @@ end
 # reads the waiting_payment.txt
 puts "starting..."
 while true
-    puts "02f15c85066a012d67fb2acc5AC5C5D28F1DE43CA2AB60733478C7E0057ADA34".upcase
+    TurtleCoin.transactions["transactions"].each do |l|
+        if WaitingDB.new("ebd32c831e00291a726425a15AC5C5D28F1DE43CA2AB60733478C7E0057ADA34").check_db
+            puts "sups"
+        end
+    end
+end
+=begin
+while true
     read = File.read("waiting_payment.txt").split
-    p read
     TurtleCoin.transactions["transactions"].each do |l|
         if read.include?(l['paymentID'])
             k       = ExtractKey.new
@@ -69,3 +76,4 @@ while true
     end
     sleep 10
 end
+=end

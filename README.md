@@ -115,6 +115,55 @@ A programmer could use the module to list all the users addresses in a certain w
 
 The file module_usage_example.rb includes another example on how the modules could be used to auto start the wallet if it is not already login. The code wil first check the status page to see if the the program is logged in to the wallet. If the program detects that the program is not logged in, it will automally log in to that user that is saved in the wallet config file. Another thing that is it is able to do is to set the node to the defualt address. 
 
+## List all the addresses
+```ruby
+require_relative 'module_example'
+puts TurtleCoin.all_addresses
+```
+
+## Get all addresses as an array
+```ruby
+require_relative 'module_example'
+addr = TurtleCoin.get_addresses_array
+addr.each do |a|
+    puts a
+end
+```
+## Get Balances
+```ruby
+require_relative 'module_example'
+TurtleCoin.get_balances
+
+```
+## Get Node Info
+```ruby
+require_relative 'module_example'
+TurtleCoin.node
+
+```
+
+## Create addresses
+```ruby
+require_relative 'module_example'
+p TurtleCoin.create_addresses(5)
+
+```
+This will create 5 new addresses. The method will return an array that contains the keys and addresses to the newly created addresses. 
+
+## Transaction Info
+Get more information about a certain transactiton.
+```ruby
+require_relative 'module_example'
+puts TurtleCoin.transaction_info(transaction_hash)
+
+```
+## Set node
+```ruby
+TurtleCoin.set_node
+
+```
+The method is able to take arguments ( node IP and port). By default the modulei set up to
+set the wallet to be synched to `TRTLnode.ddns.net`
 
 
 ### Basic Sinatra Site
