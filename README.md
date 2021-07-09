@@ -159,6 +159,7 @@ puts TurtleCoin.transaction_info(transaction_hash)
 ```
 ## Set node
 ```ruby
+require_relative 'module_example'
 TurtleCoin.set_node
 
 ```
